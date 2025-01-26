@@ -60,6 +60,10 @@
     --green: 64, 212, 135;
 
     --blue: 67, 99, 239;
+
+    --floralwhite: 255, 250, 240;
+
+    --blackBlue: 50, 56, 69;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -118,5 +122,17 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  .card {
+    transform-style: preserve-3d;
+    transition: all 0.6s;
+    visibility: visible;
+    opacity: 1;
+  }
+  .flipped {
+    transform: rotateY(360deg);
+    visibility: hidden;
+    opacity: 0;
   }
 }
