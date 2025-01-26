@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import StoreProviders from "./StoreProviders";
 
 export const metadata: Metadata = {
   title: "Flip the Card",
@@ -20,8 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className={`${inter.className} font-medium text-xl `}>
-        {children}
+      <body
+        className={`${inter.className} font-medium text-xl bg-floralwhite `}
+      >
+        <StoreProviders>{children}</StoreProviders>
       </body>
     </html>
   );
