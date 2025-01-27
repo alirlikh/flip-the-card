@@ -1,18 +1,16 @@
-import { Card } from "@/components/ui/card";
-
 function ImageCardPoster({ cardNumber }: { cardNumber: number }) {
   return (
-    <Card className="w-[140px] h-[195px] bg-green text-white flex flex-col justify-between p-3 hover:border-2 hover:border-blue">
-      <div className="self-start text-xl text-center">
-        <span>1</span>
+    <div className="relative  text-center h-full">
+      <div className="absolute top-2 left-3 text-left">
+        <span>{cardNumber}</span>
       </div>
-      <div className="self-center text-5xl underline underline-offset-8">
-        <span className="text-center">1</span>
+      <div className="absolute left-0 right-0 bottom-0 top-0  place-self-center   ">
+        <span className=" font-medium text-4xl">{cardNumber}</span>
       </div>
-      <div className="self-end text-xl">
-        <span>1</span>
+      <div className="absolute bottom-2 right-3 text-right">
+        <span>{cardNumber}</span>
       </div>
-    </Card>
+    </div>
   );
 }
 export default ImageCardPoster;

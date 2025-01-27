@@ -1,4 +1,16 @@
-function ImageCard() {
-  return <div className="w-[140px] h-[195px]">ImageCard</div>;
+import Image from "next/image";
+import { ImageType } from "../_utils/types";
+
+function ImageCard({ image }: { image: ImageType }) {
+  return (
+    <div className="relative text-center h-full ">
+      <Image
+        className="object-cover rounded-lg"
+        fill
+        src={image.src}
+        alt={`${image.id} puzzle iamge`}
+      />
+    </div>
+  );
 }
 export default ImageCard;
