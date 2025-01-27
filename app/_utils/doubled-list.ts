@@ -1,6 +1,6 @@
-import { ImagesList } from "./types";
+import { ImageType } from "./types";
 
-export const doubledList = (list: ImagesList[]): ImagesList[] => {
+export const doubledList = (list: ImageType[]): ImageType[] => {
   const list2 = list.map((item) => {
     return { id: item.id + list.length, src: item.src };
   });
