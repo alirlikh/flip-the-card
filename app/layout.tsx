@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProviders from "./StoreProviders";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Flip the Card",
@@ -25,6 +26,7 @@ export default function RootLayout({
         className={`${inter.className} font-medium text-xl bg-floralwhite `}
       >
         <StoreProviders>{children}</StoreProviders>
+        <Toaster />
       </body>
     </html>
   );
