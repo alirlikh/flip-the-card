@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAppDispatch } from "../hooks/hook";
+import { useAppDispatch, useAppSelector } from "../hooks/hook";
 import { changeCategory } from "../_lib/features/gameSlice/gameSlice";
 
 const categoriesArray = [
@@ -22,6 +22,7 @@ const categoriesArray = [
 
 function CategorySelect() {
   const dispatch = useAppDispatch();
+  const { flippedCards } = useAppSelector((state) => state.gameState);
 
   const handleSetCategory = (name: string) => {
     dispatch(changeCategory(name));
@@ -29,17 +30,22 @@ function CategorySelect() {
 
   return (
     <Select
+      disabled={flippedCards.length > 0}
       onValueChange={handleSetCategory}
       defaultValue={categoriesArray[0].name}
     >
-      <SelectTrigger className="w-[180px] h-14 font-bold ">
+      <SelectTrigger className="w-[180px] h-14 font-bold border-blackBlue">
         <SelectValue placeholder="Select a Category" />
       </SelectTrigger>
-      <SelectContent className="font-bold">
+      <SelectContent className="font-bold ">
         <SelectGroup>
           {categoriesArray.map((category) => {
             return (
-              <SelectItem key={category.id} value={category.name}>
+              <SelectItem
+                className="h-12"
+                key={category.id}
+                value={category.name}
+              >
                 {category.name}
               </SelectItem>
             );
