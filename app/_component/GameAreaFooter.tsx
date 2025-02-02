@@ -21,7 +21,7 @@ function GameAreaFooter() {
   return (
     <>
       {!!timeStarter && (
-        <div className="p-5 mt-2">
+        <div className="p-5 mt-2 place-items-center text-center">
           <Button onClick={handleReset} variant={"destructive"} size={"lg"}>
             Restart
           </Button>

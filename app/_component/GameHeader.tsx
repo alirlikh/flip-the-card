@@ -1,20 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useAppDispatch, useAppSelector } from "../hooks/hook";
 import {
   initializeCard,
-  resetGame,
   setGameStatus,
   setLoading,
   timeCounter,
 } from "../_lib/features/gameSlice/gameSlice";
-import { useToast } from "@/hooks/use-toast";
 import { useCallback, useEffect } from "react";
 import CategorySelect from "./CategorySelect";
 import { GameResultAlert } from "./GameResultAlert";
 
 function GameHeader() {
+  const score = 150;
+
   const dispatch = useAppDispatch();
   const {
     moves,
@@ -28,7 +27,6 @@ function GameHeader() {
     flippedCards,
   } = useAppSelector((state) => state.gameState);
   const remainMove = maxMoves - moves > 0 ? maxMoves - moves : 0;
-  const { toast } = useToast();
 
   const gameSatus = useCallback(() => {
     if (timer <= 0) {
@@ -56,45 +54,36 @@ function GameHeader() {
     }
   }, [dispatch, timer, gameOver, timeStarter]);
 
-  const handleReset = () => {
-    dispatch(resetGame());
-    toast({
-      title: "Game Restarted",
-      description: "You can try Again!",
-      variant: "destructive",
-    });
-  };
-
   return (
-    <div className=" w-full">
-      <div className="grid grid-cols-1  row-span-2">
-        <div className="flex flex-row justify-between items-center px-5 py-8">
-          <div>
-            <CategorySelect />
-          </div>
-          <div>
-            <Button onClick={handleReset} variant={"destructive"} size={"lg"}>
-              Restart
-            </Button>
-          </div>
+    // <div className="w-full mt-14 ">
+    <div className="grid grid-cols-1  row-span-2 auto-rows-[60px]">
+      <div className="flex flex-row justify-between items-center px-5">
+        <div>
+          <span className="font-bold">Your Score: {score}</span>
         </div>
-        <div className="flex flex-row justify-between items-center px-5 py-7">
-          {(gameOver || isWon) && (
-            <GameResultAlert
-              open={gameOver || isWon}
-              result={gameOver ? "lose" : "win"}
-            />
-          )}
+      </div>
+      <div className="flex flex-row justify-between items-center px-5 py-8">
+        <div>
+          <CategorySelect />
+        </div>
+      </div>
+      <div className="flex flex-row justify-between items-center px-5 py-7 ">
+        {(gameOver || isWon) && (
+          <GameResultAlert
+            open={gameOver || isWon}
+            result={gameOver ? "lose" : "win"}
+          />
+        )}
 
-          <div className="font-bold">
-            <span>Time: {timer} s</span>
-          </div>
-          <div className="font-bold">
-            <span>Remain Move: {remainMove}</span>
-          </div>
+        <div className="font-bold">
+          <span>Time: {timer} s</span>
+        </div>
+        <div className="font-bold">
+          <span>Remain Move: {remainMove}</span>
         </div>
       </div>
     </div>
+    // </div>
   );
 }
 export default GameHeader;
