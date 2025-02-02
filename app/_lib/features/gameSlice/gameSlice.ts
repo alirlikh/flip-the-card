@@ -1,30 +1,51 @@
+import { imagesList } from "@/app/_utils/image-list";
 import { ImageType } from "@/app/_utils/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppDispatch } from "../../store";
+
+const generateList = (categoryName: string) => {
+  const data = Array.from({ length: 6 }, (_, index) => {
+    return {
+      id: index + 1,
+      src: `/images/${categoryName}/${index + 1}.jpg`,
+    };
+  });
+  const list = imagesList(data);
+  return list;
+};
 
 const initialState = {
   cards: [] as ImageType[],
+  category: "animal",
   flippedCards: [] as number[],
   matchedCards: [] as number[],
+  timer: Number(process.env.NEXT_PUBLIC_TIMER),
+  timeStarter: false,
   moves: 0,
-  maxMoves: 20,
+  maxMoves: Number(process.env.NEXT_PUBLIC_MOVMENT),
   gameOver: false,
+  isWon: false,
+  loading: true,
+  isChecking: false,
 };
 
 const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    initializeCard(state, action: PayloadAction<ImageType[]>) {
-      const cards = action.payload;
-      state.cards = cards;
+    initializeCard: (state, action: PayloadAction<string>) => {
+      const category = action.payload || state.category;
+      state.cards = generateList(category);
       state.moves = 0;
+      state.loading = false;
     },
-    addFlippedCard(state, action: PayloadAction<number>) {
+    addFlippedCard: (state, action: PayloadAction<number>) => {
       const cardId = action.payload;
 
       if (
         !state.matchedCards.includes(cardId) &&
-        !state.flippedCards.some((flippedId) => flippedId === cardId)
+        !state.flippedCards.includes(cardId) &&
+        !state.isChecking
       ) {
         state.flippedCards.push(cardId);
         state.moves += 1;
@@ -34,27 +55,82 @@ const gameSlice = createSlice({
       }
     },
     checkMatchedCard: (state) => {
-      if (state.flippedCards.length === 2) {
-        const [firstCard, secondCard] = state.flippedCards.map((id) =>
-          state.cards.find((card: ImageType) => card.id === id)
-        );
-        if (firstCard?.src === secondCard?.src) {
-          state.matchedCards.push(...state.flippedCards);
-        }
-        state.flippedCards = [];
+      // if (state.flippedCards.length === 2) {
+      const [firstCard, secondCard] = state.flippedCards.map((id) =>
+        state.cards.find((card: ImageType) => card.id === id)
+      );
+      if (firstCard?.src === secondCard?.src) {
+        state.matchedCards.push(...state.flippedCards);
+      }
+      state.flippedCards = [];
+      state.isChecking = false;
+      // }
+    },
+    timeCounter: (state) => {
+      if (state.timer > 0) {
+        state.timer -= 1;
+      } else {
+        state.gameOver = true;
       }
     },
-    resetGame(state) {
-      state.cards = [] as ImageType[];
+    enableTimer: (state) => {
+      state.timeStarter = true;
+    },
+    changeCategory: (state, action: PayloadAction<string>) => {
+      const categoryName = action.payload;
+      state.category = categoryName;
+    },
+    setGameStatus: (state) => {
+      if (state.matchedCards.length === state.cards.length) {
+        state.isWon = true;
+        state.gameOver = false;
+      } else {
+        state.isWon = false;
+        state.gameOver = true;
+      }
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      const loadingState = action.payload;
+      state.loading = loadingState;
+    },
+    setChecking: (state, action: PayloadAction<boolean>) => {
+      state.isChecking = action.payload;
+    },
+    resetGame: (state) => {
+      const category = state.category;
+      state.cards = generateList(category);
       state.flippedCards = [] as number[];
       state.matchedCards = [] as number[];
+      state.timeStarter = false;
       state.gameOver = false;
+      state.timer = Number(process.env.NEXT_PUBLIC_TIMER);
       state.moves = 0;
+      state.loading = false;
+      state.isChecking = false;
+      state.maxMoves = Number(process.env.NEXT_PUBLIC_MOVMENT);
     },
   },
 });
 
-export const { initializeCard, addFlippedCard, checkMatchedCard, resetGame } =
-  gameSlice.actions;
+export const {
+  initializeCard,
+  addFlippedCard,
+  resetGame,
+  timeCounter,
+  changeCategory,
+  enableTimer,
+  setChecking,
+  checkMatchedCard,
+  setGameStatus,
+  setLoading,
+} = gameSlice.actions;
+
+export const checkMatchedCardWithDelay = () => (dispatch: AppDispatch) => {
+  dispatch(setChecking(true));
+
+  setTimeout(() => {
+    dispatch(checkMatchedCard());
+  }, 750);
+};
 
 export default gameSlice.reducer;
