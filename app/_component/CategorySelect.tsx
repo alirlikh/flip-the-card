@@ -29,30 +29,35 @@ function CategorySelect() {
   };
 
   return (
-    <Select
-      disabled={flippedCards.length > 0}
-      onValueChange={handleSetCategory}
-      defaultValue={categoriesArray[0].name}
-    >
-      <SelectTrigger className="w-[180px] h-14 font-bold border-blackBlue">
-        <SelectValue placeholder="Select a Category" />
-      </SelectTrigger>
-      <SelectContent className="font-bold ">
-        <SelectGroup>
-          {categoriesArray.map((category) => {
-            return (
-              <SelectItem
-                className="h-12"
-                key={category.id}
-                value={category.name}
-              >
-                {category.name}
-              </SelectItem>
-            );
-          })}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="flex flex-row items-center justify-center gap-x-5">
+      <div className="text-lg font-bold">
+        <span>Category: </span>
+      </div>
+      <Select
+        disabled={flippedCards.length > 0}
+        onValueChange={handleSetCategory}
+        defaultValue={categoriesArray[0].name}
+      >
+        <SelectTrigger className="w-[180px] h-14 font-bold border-blackBlue">
+          <SelectValue placeholder="Select a Category" />
+        </SelectTrigger>
+        <SelectContent className="font-bold ">
+          <SelectGroup>
+            {categoriesArray.map((category) => {
+              return (
+                <SelectItem
+                  className="h-12"
+                  key={category.id}
+                  value={category.name}
+                >
+                  {category.name}
+                </SelectItem>
+              );
+            })}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
 export default CategorySelect;
