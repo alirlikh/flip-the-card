@@ -7,13 +7,11 @@ import {
   setLoading,
   timeCounter,
 } from "../_lib/features/gameSlice/gameSlice";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import CategorySelect from "./CategorySelect";
 import { GameResultAlert } from "./GameResultAlert";
 
 function GameHeader() {
-  const score = 150;
-
   const dispatch = useAppDispatch();
   const {
     moves,
@@ -27,6 +25,16 @@ function GameHeader() {
     flippedCards,
   } = useAppSelector((state) => state.gameState);
   const remainMove = maxMoves - moves > 0 ? maxMoves - moves : 0;
+
+  const score = useMemo(() => {
+    if (isWon) {
+      return matchedCards.length * 10 + timer * 2;
+    } else {
+      const calculatedScore =
+        matchedCards.length * 10 - (moves - matchedCards.length) * 2;
+      return calculatedScore > 0 ? calculatedScore : 0;
+    }
+  }, [matchedCards, timer, moves, isWon]);
 
   const gameSatus = useCallback(() => {
     if (timer <= 0) {
