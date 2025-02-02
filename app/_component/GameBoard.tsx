@@ -37,7 +37,7 @@ function GameBoard() {
   }
 
   return (
-    <div className="p-4 border-4 border-black text-center rounded-lg ">
+    <div className="p-4 border-4 border-blackBlue text-center rounded-lg bg-white">
       <div className="w-[448px] min-h-96 flex flex-row gap-2 flex-wrap justify-around items-center ">
         {loading ? (
           <Spiner />

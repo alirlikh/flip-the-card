@@ -15,7 +15,7 @@ const config: Config = {
         green: "rgb(var(--green))",
         blue: "rgb(var(--blue))",
         floralwhite: "rgb(var(--floralwhite))",
-        balckBlue: "rgb(var(--blackBlue))",
+        blackBlue: "rgb(var(--blackBlue))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

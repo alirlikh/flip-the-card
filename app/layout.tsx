@@ -22,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body
-        className={`${inter.className} font-medium text-xl bg-floralwhite `}
-      >
+      <body className={`${inter.className} font-medium text-xl bg-blue-100 `}>
         <StoreProviders>{children}</StoreProviders>
         <Toaster />
       </body>
