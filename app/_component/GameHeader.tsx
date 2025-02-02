@@ -12,6 +12,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useCallback, useEffect } from "react";
 import CategorySelect from "./CategorySelect";
+import { GameResultAlert } from "./GameResultAlert";
 
 function GameHeader() {
   const dispatch = useAppDispatch();
@@ -78,21 +79,19 @@ function GameHeader() {
           </div>
         </div>
         <div className="flex flex-row justify-between items-center px-5 py-7">
-          {gameOver && (
-            <div className="font-bold text-red-500">
-              {isWon ? "You Win!" : "Game Over!"}
-            </div>
+          {(gameOver || isWon) && (
+            <GameResultAlert
+              open={gameOver || isWon}
+              result={gameOver ? "lose" : "win"}
+            />
           )}
-          {!gameOver && (
-            <>
-              <div className="font-bold">
-                <span>Time: {timer} s</span>
-              </div>
-              <div className="font-bold">
-                <span>Remain Move: {remainMove}</span>
-              </div>
-            </>
-          )}
+
+          <div className="font-bold">
+            <span>Time: {timer} s</span>
+          </div>
+          <div className="font-bold">
+            <span>Remain Move: {remainMove}</span>
+          </div>
         </div>
       </div>
     </div>
