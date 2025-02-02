@@ -9,6 +9,7 @@ function ImageCard({ image }: { image: ImageType }) {
         fill
         src={image.src}
         alt={`${image.id} puzzle iamge`}
+        priority
       />
     </div>
   );
