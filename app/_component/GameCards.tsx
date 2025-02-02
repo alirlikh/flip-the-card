@@ -1,8 +1,11 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, memo } from "react";
 import { useAppSelector } from "../hooks/hook";
 import ImageCard from "./ImageCard";
 import ImageCardPoster from "./ImageCardPoster";
 import { ImageType } from "../_utils/types";
+
+// const GameCards =
+// memo(
 
 function GameCards({
   onClick,
@@ -13,7 +16,7 @@ function GameCards({
   index: number;
   image: ImageType;
 }) {
-  const { flippedCards, matchedCards } = useAppSelector(
+  const { flippedCards, matchedCards, isWon, gameOver } = useAppSelector(
     (state) => state.gameState
   );
   const isMatched = matchedCards.includes(image.id);
@@ -23,10 +26,10 @@ function GameCards({
     <button
       onClick={onClick}
       className={`${isMatched ? "blur-[2px]" : ""} card  ${isFlipped ? "flipped" : ""}`}
-      disabled={isMatched}
+      disabled={isMatched || isWon || gameOver}
     >
       <div
-        className={`w-[100px] h-[135px] bg-green text-white rounded-lg border-2 ${isMatched ? "" : "hover:border-blue hover:border-2"}`}
+        className={`w-[100px] h-[135px] bg-green text-white rounded-lg border-2 ${isMatched || isWon || gameOver ? "" : "hover:border-blue hover:border-2"}`}
       >
         {isFlipped || isMatched ? (
           <ImageCard image={image} />
@@ -37,4 +40,6 @@ function GameCards({
     </button>
   );
 }
+
+// );
 export default GameCards;
