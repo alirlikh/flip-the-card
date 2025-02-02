@@ -19,10 +19,10 @@ const initialState = {
   category: "animal",
   flippedCards: [] as number[],
   matchedCards: [] as number[],
-  timer: Number(process.env.NEXT_PUBLIC_TIMER),
+  timer: Number(process.env.NEXT_PUBLIC_TIMER) || 30,
   timeStarter: false,
   moves: 0,
-  maxMoves: Number(process.env.NEXT_PUBLIC_MOVMENT),
+  maxMoves: Number(process.env.NEXT_PUBLIC_MOVMENT) || 25,
   gameOver: false,
   isWon: false,
   loading: true,
@@ -103,11 +103,11 @@ const gameSlice = createSlice({
       state.matchedCards = [] as number[];
       state.timeStarter = false;
       state.gameOver = false;
-      state.timer = Number(process.env.NEXT_PUBLIC_TIMER);
+      state.timer = Number(process.env.NEXT_PUBLIC_TIMER) || 30;
       state.moves = 0;
       state.loading = false;
       state.isChecking = false;
-      state.maxMoves = Number(process.env.NEXT_PUBLIC_MOVMENT);
+      state.maxMoves = Number(process.env.NEXT_PUBLIC_MOVMENT) || 25;
     },
   },
 });
