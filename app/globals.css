@@ -127,12 +127,8 @@
   .card {
     transform-style: preserve-3d;
     transition: all 0.6s;
-    visibility: visible;
-    opacity: 1;
   }
   .flipped {
     transform: rotateY(360deg);
-    visibility: hidden;
-    opacity: 0;
   }
 }
