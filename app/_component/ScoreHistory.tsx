@@ -12,6 +12,7 @@ import { Score } from "../_utils/types";
 import { useEffect, useMemo, useState } from "react";
 import { getScoreFromStorage } from "../_utils/RandWLocalStorage";
 import { useAppSelector } from "../hooks/hook";
+import { Calendar, Pin, PinIcon } from "lucide-react";
 
 export function ScoreHistory() {
   const { gameOver, isWon } = useAppSelector((state) => state.gameState);
@@ -42,7 +43,10 @@ export function ScoreHistory() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Show the Score History</Button>
+        <Button variant="outline">
+          <PinIcon />
+          <div>Show the Score History</div>
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -55,7 +59,9 @@ export function ScoreHistory() {
         {savedScore && savedScore ? (
           Object.entries(scoresByDate).map(([date, scores]) => (
             <div key={date} className="space-y-2">
-              <div className="text-gray-400 text-sm mt-3">
+              <div className="text-gray-400 text-sm mt-3 flex flex-row gap-x-2 items-center">
+                <Calendar className="w-4" />
+
                 <time>{new Date(date).toLocaleDateString()}</time>
               </div>
               <ul>

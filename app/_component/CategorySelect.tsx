@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { useAppDispatch, useAppSelector } from "../hooks/hook";
 import { changeCategory } from "../_lib/features/gameSlice/gameSlice";
+import { ListIcon } from "lucide-react";
 
 const categoriesArray = [
   {
@@ -22,7 +23,7 @@ const categoriesArray = [
 
 function CategorySelect() {
   const dispatch = useAppDispatch();
-  const { flippedCards } = useAppSelector((state) => state.gameState);
+  const { timeStarter } = useAppSelector((state) => state.gameState);
 
   const handleSetCategory = (name: string) => {
     dispatch(changeCategory(name));
@@ -30,11 +31,12 @@ function CategorySelect() {
 
   return (
     <div className="flex flex-row items-center justify-center gap-x-5">
-      <div className="text-lg font-bold">
+      <div className="text-lg font-bold flex flex-row gap-x-2 items-center">
+        <ListIcon />
         <span>Category: </span>
       </div>
       <Select
-        disabled={flippedCards.length > 0}
+        disabled={timeStarter}
         onValueChange={handleSetCategory}
         defaultValue={categoriesArray[0].name}
       >

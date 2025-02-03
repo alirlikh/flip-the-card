@@ -12,6 +12,7 @@ import { useCallback, useEffect } from "react";
 import CategorySelect from "./CategorySelect";
 import { GameResultAlert } from "./GameResultAlert";
 import { ScoreHistory } from "./ScoreHistory";
+import { StarIcon, TimerIcon } from "lucide-react";
 
 function GameHeader() {
   const dispatch = useAppDispatch();
@@ -56,7 +57,8 @@ function GameHeader() {
   return (
     <div className="grid grid-cols-1  row-span-2 auto-rows-[60px]">
       <div className="flex flex-row justify-between items-center px-5">
-        <div>
+        <div className="flex flex-row gap-x-2">
+          <StarIcon />
           <span className="font-bold">Your Score: {score}</span>
         </div>
         <div>
@@ -76,7 +78,8 @@ function GameHeader() {
           />
         )}
 
-        <div className="font-bold">
+        <div className="font-bold flex flex-row gap-x-2">
+          <TimerIcon />
           <span>Time: {timer} s</span>
         </div>
         <div className="font-bold">
