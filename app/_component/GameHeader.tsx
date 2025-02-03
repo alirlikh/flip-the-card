@@ -10,6 +10,7 @@ import {
 import { useCallback, useEffect, useMemo } from "react";
 import CategorySelect from "./CategorySelect";
 import { GameResultAlert } from "./GameResultAlert";
+import { ScoreHistory } from "./ScoreHistory";
 
 function GameHeader() {
   const dispatch = useAppDispatch();
@@ -68,6 +69,9 @@ function GameHeader() {
       <div className="flex flex-row justify-between items-center px-5">
         <div>
           <span className="font-bold">Your Score: {score}</span>
+        </div>
+        <div>
+          <ScoreHistory />
         </div>
       </div>
       <div className="flex flex-row justify-between items-center px-5 py-8">
