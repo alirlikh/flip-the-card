@@ -2,6 +2,7 @@ import { imagesList } from "@/app/_utils/image-list";
 import { ImageType } from "@/app/_utils/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../store";
+import { setScoreInStorage } from "@/app/_utils/RandWLocalStorage";
 
 const generateList = (categoryName: string) => {
   const data = Array.from({ length: 6 }, (_, index) => {
@@ -27,6 +28,7 @@ const initialState = {
   isWon: false,
   loading: true,
   isChecking: false,
+  score: 0,
 };
 
 const gameSlice = createSlice({
@@ -41,7 +43,6 @@ const gameSlice = createSlice({
     },
     addFlippedCard: (state, action: PayloadAction<number>) => {
       const cardId = action.payload;
-
       if (
         !state.matchedCards.includes(cardId) &&
         !state.flippedCards.includes(cardId) &&
@@ -81,10 +82,13 @@ const gameSlice = createSlice({
       state.category = categoryName;
     },
     setGameStatus: (state) => {
-      if (state.matchedCards.length === state.cards.length) {
+      if (
+        state.matchedCards.length > 0 &&
+        state.matchedCards.length === state.cards.length
+      ) {
         state.isWon = true;
-        state.gameOver = false;
-      } else {
+        state.gameOver = true;
+      } else if (state.timer <= 0 || state.maxMoves <= state.moves) {
         state.isWon = false;
         state.gameOver = true;
       }
@@ -95,6 +99,23 @@ const gameSlice = createSlice({
     },
     setChecking: (state, action: PayloadAction<boolean>) => {
       state.isChecking = action.payload;
+    },
+    setScore: (state) => {
+      if (state.isWon) {
+        state.score = state.matchedCards.length * 10 + state.timer * 2;
+      } else {
+        const calculatedScore =
+          state.matchedCards.length * 10 -
+          (state.moves - state.matchedCards.length) * 2;
+        state.score = calculatedScore > 0 ? calculatedScore : 0;
+      }
+      if (state.gameOver) {
+        setScoreInStorage({
+          score: state.score,
+          date: new Date(),
+          result: state.isWon === true ? "win" : "lose",
+        });
+      }
     },
     resetGame: (state) => {
       const category = state.category;
@@ -107,6 +128,8 @@ const gameSlice = createSlice({
       state.moves = 0;
       state.loading = false;
       state.isChecking = false;
+      state.score = 0;
+      state.isWon = false;
       state.maxMoves = Number(process.env.NEXT_PUBLIC_MOVMENT) || 25;
     },
   },
@@ -123,6 +146,7 @@ export const {
   checkMatchedCard,
   setGameStatus,
   setLoading,
+  setScore,
 } = gameSlice.actions;
 
 export const checkMatchedCardWithDelay = () => (dispatch: AppDispatch) => {
