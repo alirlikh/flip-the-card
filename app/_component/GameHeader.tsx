@@ -27,16 +27,6 @@ function GameHeader() {
   } = useAppSelector((state) => state.gameState);
   const remainMove = maxMoves - moves > 0 ? maxMoves - moves : 0;
 
-  // const score = useMemo(() => {
-  //   if (isWon) {
-  //     return matchedCards.length * 10 + timer * 2;
-  //   } else {
-  //     const calculatedScore =
-  //       matchedCards.length * 10 - (moves - matchedCards.length) * 2;
-  //     return calculatedScore > 0 ? calculatedScore : 0;
-  //   }
-  // }, [matchedCards, timer, moves, isWon]);
-
   const gameStatus = useCallback(() => {
     dispatch(setGameStatus());
   }, [dispatch]);
@@ -64,7 +54,6 @@ function GameHeader() {
   }, [dispatch, timer, gameOver, timeStarter]);
 
   return (
-    // <div className="w-full mt-14 ">
     <div className="grid grid-cols-1  row-span-2 auto-rows-[60px]">
       <div className="flex flex-row justify-between items-center px-5">
         <div>
@@ -95,7 +84,6 @@ function GameHeader() {
         </div>
       </div>
     </div>
-    // </div>
   );
 }
 export default GameHeader;
