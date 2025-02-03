@@ -3,3 +3,10 @@ export type ImageType = {
   src: string;
   name?: string;
 };
+
+export type Score = {
+  id: number;
+  date: Date;
+  score: number;
+  result: "win" | "lose";
+};
