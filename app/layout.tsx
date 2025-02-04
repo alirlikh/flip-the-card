@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html lang="en">
       <body className={`${inter.className} font-medium text-xl bg-blue-100 `}>
         <StoreProviders>{children}</StoreProviders>
         <Toaster />
