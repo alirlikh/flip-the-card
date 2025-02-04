@@ -30,8 +30,8 @@ function CategorySelect() {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center gap-x-5">
-      <div className="text-lg font-bold flex flex-row gap-x-2 items-center">
+    <div className="flex flex-row items-center  gap-x-5 flex-1 justify-between">
+      <div className="text-base font-bold flex flex-row gap-x-2 items-center">
         <ListIcon />
         <span>Category: </span>
       </div>
@@ -40,7 +40,7 @@ function CategorySelect() {
         onValueChange={handleSetCategory}
         defaultValue={categoriesArray[0].name}
       >
-        <SelectTrigger className="w-[180px] h-14 font-bold border-blackBlue">
+        <SelectTrigger className="w-[215px] h-10 font-bold border-blackBlue">
           <SelectValue placeholder="Select a Category" />
         </SelectTrigger>
         <SelectContent className="font-bold ">

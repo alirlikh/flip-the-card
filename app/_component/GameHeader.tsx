@@ -56,18 +56,18 @@ function GameHeader() {
   }, [dispatch, timer, gameOver, timeStarter]);
 
   return (
-    <div className="grid grid-cols-1  row-span-2 auto-rows-[60px]">
+    <div className="grid grid-cols-1  row-span-2 auto-rows-[55px]">
       <div className="flex flex-row justify-between items-center px-5">
         <div className="flex flex-row gap-x-2">
           <StarIcon />
-          <span className="font-bold">Your Score: {score}</span>
+          <span className="font-bold text-base">Your Score: {score}</span>
         </div>
         <div>
           <ScoreHistory />
         </div>
       </div>
-      <div className="flex flex-row justify-between items-center px-5 py-8">
-        <div>
+      <div className="flex flex-row justify-between items-center px-5 py-7">
+        <div className="flex flex-row flex-1">
           <CategorySelect />
         </div>
       </div>
@@ -79,11 +79,11 @@ function GameHeader() {
           />
         )}
 
-        <div className="font-bold flex flex-row gap-x-2">
+        <div className="font-bold text-base flex flex-row gap-x-2">
           <TimerIcon />
           <span>Time: {timer} s</span>
         </div>
-        <div className="font-bold">
+        <div className="font-bold text-base">
           <span>Remain Move: {remainMove}</span>
         </div>
       </div>

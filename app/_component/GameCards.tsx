@@ -1,4 +1,4 @@
-import { MouseEventHandler, memo } from "react";
+import { MouseEventHandler } from "react";
 import { useAppSelector } from "../hooks/hook";
 import ImageCard from "./ImageCard";
 import ImageCardPoster from "./ImageCardPoster";
@@ -29,7 +29,7 @@ function GameCards({
       disabled={isMatched || isWon || gameOver}
     >
       <div
-        className={`w-[100px] h-[135px] bg-green text-white rounded-lg border-2 ${isMatched || isWon || gameOver ? "" : "hover:border-blue hover:border-2"}`}
+        className={`w-[90px] h-[115px] bg-green text-white rounded-lg border-2 ${isMatched || isWon || gameOver ? "" : "hover:border-blue hover:border-2"}`}
       >
         {isFlipped || isMatched ? (
           <ImageCard image={image} />
