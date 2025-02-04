@@ -7,6 +7,7 @@ export const setScoreInStorage = (value: {
   const newData = oldData ? oldData : [];
   newData.push(value);
   localStorage.setItem("flip-game-scores", JSON.stringify(newData));
+  window.dispatchEvent(new Event("storage"));
 };
 export const getScoreFromStorage = () => {
   const scores = localStorage.getItem("flip-game-scores");

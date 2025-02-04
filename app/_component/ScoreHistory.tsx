@@ -9,37 +9,11 @@ import {
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ScoreTooltip from "./ScoreTooltip";
-import { Score } from "../_utils/types";
-import { useEffect, useMemo, useState } from "react";
-import { getScoreFromStorage } from "../_utils/RandWLocalStorage";
-import { useAppSelector } from "../hooks/hook";
 import { Calendar, PinIcon } from "lucide-react";
+import { useSavedScore } from "../hooks/useSavedScore";
 
 export function ScoreHistory() {
-  const { gameOver, isWon } = useAppSelector((state) => state.gameState);
-
-  const [savedScore, setSavedScore] = useState<Score[]>();
-
-  useEffect(() => {
-    const data = getScoreFromStorage();
-    if (data) {
-      setSavedScore(data);
-    }
-  }, [gameOver, isWon]);
-
-  const scoresByDate = useMemo(() => {
-    if (!savedScore?.length) return {};
-
-    return savedScore?.reduce<Record<string, Score[]>>(
-      (acc, curr) => {
-        const dateKey = new Date(curr.date).toISOString().split("T")[0]; // YYYY-MM-DD
-        if (!acc[dateKey]) acc[dateKey] = [];
-        acc[dateKey].push(curr);
-        return acc;
-      },
-      {} as Record<string, Score[]>
-    );
-  }, [savedScore]);
+  const { savedScore, scoresByDate } = useSavedScore();
 
   return (
     <Sheet>
