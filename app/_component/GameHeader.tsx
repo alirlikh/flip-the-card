@@ -25,6 +25,7 @@ function GameHeader() {
     timeStarter,
     isWon,
     score,
+    matchedCards,
   } = useAppSelector((state) => state.gameState);
   const remainMove = maxMoves - moves > 0 ? maxMoves - moves : 0;
 
@@ -38,7 +39,7 @@ function GameHeader() {
 
   useEffect(() => {
     dispatch(setScore());
-  }, [gameOver, isWon, dispatch]);
+  }, [matchedCards, gameOver, isWon, dispatch]);
 
   useEffect(() => {
     dispatch(setLoading(true));

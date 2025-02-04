@@ -101,13 +101,13 @@ const gameSlice = createSlice({
       state.isChecking = action.payload;
     },
     setScore: (state) => {
+      const calculatedScore =
+        state.matchedCards.length * 10 -
+        (state.moves - state.matchedCards.length) * 2;
+      state.score = calculatedScore > 0 ? calculatedScore : 0;
+
       if (state.isWon) {
-        state.score = state.matchedCards.length * 10 + state.timer * 2;
-      } else {
-        const calculatedScore =
-          state.matchedCards.length * 10 -
-          (state.moves - state.matchedCards.length) * 2;
-        state.score = calculatedScore > 0 ? calculatedScore : 0;
+        state.score = state.score + state.timer * 5;
       }
       if (state.gameOver) {
         setScoreInStorage({
