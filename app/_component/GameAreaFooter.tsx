@@ -7,9 +7,7 @@ import { resetGame } from "../_lib/features/gameSlice/gameSlice";
 
 function GameAreaFooter() {
   const dispatch = useAppDispatch();
-  const { timeStarter, gameOver, isWon } = useAppSelector(
-    (state) => state.gameState
-  );
+  const { timeStarter, gameOver } = useAppSelector((state) => state.gameState);
 
   const { toast } = useToast();
   const handleReset = () => {
