@@ -20,13 +20,18 @@ function GameAreaFooter() {
   };
   return (
     <>
-      {!!timeStarter && (
-        <div className="p-5 mt-2 place-items-center text-center">
-          <Button onClick={handleReset} variant={"destructive"} size={"lg"}>
-            Restart
-          </Button>
-        </div>
-      )}
+      <div className="p-5 mt-2  place-items-center text-center">
+        {/* {!!timeStarter && ( */}
+        <Button
+          className={`opacity-0 transition-all invisible delay-100 ${!!timeStarter ? "opacity-100 visible" : "visible"}`}
+          onClick={handleReset}
+          variant={"destructive"}
+          size={"lg"}
+        >
+          Restart
+        </Button>
+        {/* )} */}
+      </div>
     </>
   );
 }

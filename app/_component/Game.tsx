@@ -4,7 +4,7 @@ import GameHeader from "./GameHeader";
 
 function Game() {
   return (
-    <div className="border-t-4 rounded-t-sm border-t-blackBlue bg-gray-50 mt-14 rounded-sm">
+    <div className="border-t-4 rounded-t-sm border-t-blackBlue bg-gray-50 mt-14 rounded-md">
       <div className="px-5">
         <GameHeader />
       </div>
