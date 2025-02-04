@@ -23,7 +23,6 @@ function GameAreaFooter() {
       <div className="p-5 mt-2  place-items-center text-center">
         {/* {!!timeStarter && ( */}
         <Button
-          disabled={!timeStarter || !gameOver}
           className={` transition-all  delay-100 `}
           onClick={handleReset}
           variant={"destructive"}
