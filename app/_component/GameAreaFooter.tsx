@@ -7,7 +7,7 @@ import { resetGame } from "../_lib/features/gameSlice/gameSlice";
 
 function GameAreaFooter() {
   const dispatch = useAppDispatch();
-  const { timeStarter, gameOver } = useAppSelector((state) => state.gameState);
+  const { timeStarter } = useAppSelector((state) => state.gameState);
 
   const { toast } = useToast();
   const handleReset = () => {
@@ -21,8 +21,8 @@ function GameAreaFooter() {
   return (
     <>
       <div className="p-5 mt-2  place-items-center text-center">
-        {/* {!!timeStarter && ( */}
         <Button
+          disabled={!timeStarter}
           className={` transition-all  delay-100 `}
           onClick={handleReset}
           variant={"destructive"}
@@ -30,7 +30,6 @@ function GameAreaFooter() {
         >
           Restart
         </Button>
-        {/* )} */}
       </div>
     </>
   );
